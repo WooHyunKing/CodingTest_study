@@ -8,7 +8,7 @@ for i in range(n):
 
 List.sort(key=lambda x:x[1])
 
-print(List)
+# print(List)
 
 for stuent in List:
     print(stuent[0], end=' ')

@@ -30,6 +30,7 @@ def bfs(x,y):
             if graph[nx][ny]==1:
                 graph[nx][ny]=graph[x][y]+1
                 queue.append((nx,ny))
+                print(graph[nx][ny])
     return graph[n-1][m-1]
 
 print(bfs(0,0))

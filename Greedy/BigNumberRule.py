@@ -27,13 +27,13 @@ import time
 
 
 # 본인 풀이
-n, m, k = map(int,input().split());
-arr = list(map(int,input().split()));
+n, m, k = map(int,input().split())
+arr = list(map(int,input().split()))
 
-arr.sort(reverse=True);
+arr.sort(reverse=True)
 
-a = m // (k+1);
-b = m % (k+1);
+a = m // (k+1)
+b = m % (k+1)
 
-total = ((arr[0]*k)+arr[1])*a + (b*arr[0]);
-print(total);
+total = ((arr[0]*k)+arr[1])*a + (b*arr[0])
+print(total)

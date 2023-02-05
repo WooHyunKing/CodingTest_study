@@ -31,37 +31,63 @@
     
 #     return -1
 
-from operator import itemgetter
+# from operator import itemgetter
+
+# def solution(food_times, k):
+    
+#     foods = []
+#     food_count = len(food_times) # 가로(남은 음식 개수)
+    
+#     # 튜플 자료형으로 음식의 소요 시간과 인덱스를 저장
+#     for i in range(food_count):
+#         foods.append((food_times[i],i+1))
+    
+#     # 튜플 자료형은 첫 번째 원소를 기준으로 정렬 !
+#     foods.sort()
+    
+#     pretime = 0 
+    
+#     # enumerate() 함수는 기본적으로 인덱스와 원소로 이루어진 튜플(tuple)을 만들어줍니다. 따라서 인덱스와 원소를 각각 다른 변수에 할당하고 싶다면 인자 풀기(unpacking)를 해줘야 합니다.
+#     for i,food in enumerate(foods):
+#         diff = food[0] - pretime # 세로(소요 시간)
+#         if diff != 0:
+#             spend = diff*food_count # 총 소요시간(세로 x 가로)
+
+#             if spend <= k: # 총 소요시간이 k보다 쟉은 경우
+#                 k -= spend
+#                 pretime = food[0]
+
+#             else: # 총 소요시간이 k 보다 오래 걸릴 경우
+#                 k %= food_count # 나머지 계산
+#                 sublist = sorted(foods[i:],key = itemgetter(1)) # 인덱스 기준으로 재정렬
+#                 return sublist[k][1] # 정답 인덱스
+            
+#         food_count -= 1 # 하나의 음식을 모두 섭취했으니 남은 음식 개수 최신화
+        
+#     return -1
+
+import heapq
 
 def solution(food_times, k):
     
-    foods = []
-    food_count = len(food_times) # 가로(남은 음식 개수)
+    if sum(food_times) <= k:
+        return -1
     
-    # 튜플 자료형으로 음식의 소요 시간과 인덱스를 저장
+    hq = []
+    food_count = len(food_times)
+    
+    # 소요 시간이 작은 음식부터 빼야 하므로 우선순위 큐를 이용(최소 Heap)
     for i in range(food_count):
-        foods.append((food_times[i],i+1))
-    
-    # 튜플 자료형은 첫 번째 원소를 기준으로 정렬 !
-    foods.sort()
-    
-    pretime = 0 
-    
-    # enumerate() 함수는 기본적으로 인덱스와 원소로 이루어진 튜플(tuple)을 만들어줍니다. 따라서 인덱스와 원소를 각각 다른 변수에 할당하고 싶다면 인자 풀기(unpacking)를 해줘야 합니다.
-    for i,food in enumerate(foods):
-        diff = food[0] - pretime # 세로(소요 시간)
-        if diff != 0:
-            spend = diff*food_count # 총 소요시간(세로 x 가로)
-
-            if spend <= k: # 총 소요시간이 k보다 쟉은 경우
-                k -= spend
-                pretime = food[0]
-
-            else: # 총 소요시간이 k 보다 오래 걸릴 경우
-                k %= food_count # 나머지 계산
-                sublist = sorted(foods[i:],key = itemgetter(1)) # 인덱스 기준으로 재정렬
-                return sublist[k][1] # 정답 인덱스
-            
-        food_count -= 1 # 하나의 음식을 모두 섭취했으니 남은 음식 개수 최신화
+        heapq.heappush(hq,(food_times[i],i+1))
         
-    return -1
+    sum_value = 0 # 먹기 위해 사용한 시간
+    pre_time = 0 # 이전에 다 먹은 음식 시간
+    
+    while sum_value + ((hq[0][0] - pre_time)*food_count) <=k:
+        now = heapq.heappop(hq)[0]
+        sum_value += (now-pre_time)*food_count
+        food_count -= 1 # 다 먹은 음식은 남은 음식 개수에서 빼기
+        pre_time = now # 이전 음식 시간 재설정
+    
+    result = sorted(hq,key=lambda x:x[1]) # 음식 번호(인덱스) 기준으로 정렬
+    return result[(k-sum_value)%food_count][1]

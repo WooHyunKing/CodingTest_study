@@ -20,20 +20,34 @@ from collections import deque
 #                 queue.append(i)
 #                 visited[i]=True
 
-def bfs(graph,start,visited):
-    # [ [1], [] , [] , [] ,[ ], [], ]
-    queue = deque([start])
+# def bfs(graph,start,visited):
+#     # [ [1], [] , [] , [] ,[ ], [], ]
+#     queue = deque([start])
 
-    visited[start]=True
+#     visited[start]=True
+
+#     while queue:
+#         v = queue.popleft()
+#         print(v,end=' ')
+        
+#         for i in graph[v]:
+#             if not visited[i]:
+#                 queue.append(i)
+#                 visited[i]=True
+
+def bfs(graph, start, visited):
+    queue = deque([start])
+    
+    visited[start] = True
 
     while queue:
         v = queue.popleft()
         print(v,end=' ')
-        
+
         for i in graph[v]:
             if not visited[i]:
                 queue.append(i)
-                visited[i]=True
+                visited[i] = True
 
 # 각 노드가 연결된 정보를 리스트 자료형으로 표현(2차원 리스트)
 graph=[

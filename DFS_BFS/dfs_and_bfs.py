@@ -49,8 +49,11 @@ visited_bfs = [False] * (n+1)
 for _ in range(m):
     x, y = map(int,input().split())
     graph[x].append(y)
+    # 두 정점 사이의 간선은 양방향이므로 양방향으로 저장
     graph[y].append(x)
 
+# 방문할 수 있는 정점이 여러 개인 경우 정점 번호가 작은 것 부터 방문해야 하므로
+# 각 노드마다 정렬
 for i in graph:
     i.sort()
 

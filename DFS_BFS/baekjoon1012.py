@@ -4,6 +4,9 @@ t = int(input())
 count_list = []
 
 def dfs(x,y):
+
+    if x < 0 or x >= n or y < 0 or y >= m:
+        return False
     
     if area[x][y] == 1 and not visited[x][y]:
         visited[x][y] = True
@@ -15,13 +18,11 @@ def dfs(x,y):
             temp_x = x + nx[i]
             temp_y = y + ny[i]
 
-            if temp_x >= 0 and temp_x < n and temp_y >=0 and temp_y < m:
-                if area[temp_x][temp_y] == 1 and not visited[temp_x][temp_y]:
-                    dfs(temp_x,temp_y)
+            dfs(temp_x,temp_y)
 
         return True
-    else:
-        return False
+
+    return False
 
 for _ in range(t):
     # 세로(n), 가로(m), 배추 개수(k)

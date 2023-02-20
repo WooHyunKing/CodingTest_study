@@ -1,11 +1,23 @@
+# n = int(input())
+
+# array=[]
+
+# for i in range(n):
+#     array.append(int(input()))
+
+# array.sort(reverse=True)
+
+# for i in array:
+#     print(i,end=' ')
+
 n = int(input())
 
-array=[]
+arr = [0]*n
 
 for i in range(n):
-    array.append(int(input()))
+    arr[i] = int(input())
 
-array.sort(reverse=True)
+arr.sort(reverse=True)
 
-for i in array:
-    print(i,end=' ')
+for i in range(n):
+    print(arr[i],end=' ')

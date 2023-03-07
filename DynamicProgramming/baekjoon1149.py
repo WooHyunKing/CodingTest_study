@@ -20,5 +20,4 @@ for i in range(1,n):
         else:
             dp[i][j] = area[i][j] + min(dp[i-1][0], dp[i-1][1])
 
-print(dp)
-print(max(dp[n-1]))
+print(min(dp[n-1]))

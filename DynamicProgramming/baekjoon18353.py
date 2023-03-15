@@ -1,12 +1,15 @@
-# n = int(input())
+import sys
+input = sys.stdin.readline
 
-# array = list(map(int,input().split()))
+n = int(input())
 
-# dp = [1]*n
+data = list(map(int,input().split()))
 
-# for i in range(n):
-#     for j in range(i):
-#         if array[i] > array[j]:
-#             dp[i] = max(dp[i], dp[j] + 1)
+dp = [1]*n
 
-# print(max(dp))
+for i in range(1,n):
+    for j in range(i):
+        if data[i] < data[j]:
+            dp[i] = max(dp[i],dp[j]+1)
+
+print(n - max(dp))

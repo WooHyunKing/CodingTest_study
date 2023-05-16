@@ -18,19 +18,33 @@
 
 array = [5, 7, 9, 0, 3, 1, 6, 2, 4, 8]
 
-def quick_sort(array):
+# def quick_sort(array):
     
-    # 리스트가 1개 이하의 원소를 담고 있다면 종료
+#     # 리스트가 1개 이하의 원소를 담고 있다면 종료
+#     if len(array) <= 1:
+#         return array
+    
+#     pivot = array[0] # 피벗은 첫번째 원소
+#     tail = array[1:] # 피벗을 제외한 리스트
+
+#     left_side = [x for x in tail if x <= pivot] # 피벗보다 작은 왼쪽부분
+#     right_side = [x for x in tail if x>pivot] # 피벗보다 큰 오른쪽 부분
+
+#     # 분할 이후에 왼쪽 부분과 오른쪽 부분에서 각각 정렬을 수행하고 전체 리스트 반환
+#     return quick_sort(left_side) + [pivot] + quick_sort(right_side)
+
+# print(quick_sort(array))
+
+def quick_sort(array):
     if len(array) <= 1:
         return array
-    
-    pivot = array[0] # 피벗은 첫번째 원소
-    tail = array[1:] # 피벗을 제외한 리스트
 
-    left_side = [x for x in tail if x <= pivot] # 피벗보다 작은 왼쪽부분
-    right_side = [x for x in tail if x>pivot] # 피벗보다 큰 오른쪽 부분
+    pivot = array[0]
+    tail = array[1:]
 
-    # 분할 이후에 왼쪽 부분과 오른쪽 부분에서 각각 정렬을 수행하고 전체 리스트 반환
-    return quick_sort(left_side) + [pivot] + quick_sort(right_side)
+    left = [x for x in tail if x <= pivot]
+    right = [x for x in tail if x > pivot]
 
-print(quick_sort(array))
+    return quick_sort(left) + [pivot] + quick_sort(right)
+
+print(quick_sort(array))       

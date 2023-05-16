@@ -1,7 +1,6 @@
 def cost(B):
     # Write your code here
     length = len(B)
-    A = B.copy()
     
     dp = [[0]*2 for _ in range(length)]
     

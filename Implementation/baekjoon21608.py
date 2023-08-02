@@ -22,9 +22,7 @@ for i in range(n**2):
         else:
             like_dict[data[i][0]].add(data[i][j])
 
-# print(like_dict)
-
-def getLike(num): # 1번 조건에 해당하는 자리 목록
+def getLike(num): # 인접한 좋아하는 학생이 가장 많은 자리 목록 (1번 조건)
     result_list = [] 
     max_value = -1
     for i in range(n):
@@ -43,11 +41,9 @@ def getLike(num): # 1번 조건에 해당하는 자리 목록
                 max_value = temp
             elif (temp == max_value):
                 result_list.append((i,j))
-    # print("Hi 1")
-    # print(result_list)
     return result_list
 
-def getEmpty(locations): # 인접한 빈칸이 가장 많은 자리 목록
+def getEmpty(locations): # 인접한 빈칸이 가장 많은 자리 목록 (2번 조건)
     result_list = []
     max_value = -1
     
@@ -57,7 +53,7 @@ def getEmpty(locations): # 인접한 빈칸이 가장 많은 자리 목록
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
-            # print("nx,ny:",nx,ny)
+
             if nx >= 0 and nx < n and ny >= 0 and ny < n:
                 if location[nx][ny] == 0:
                     temp += 1
@@ -66,13 +62,12 @@ def getEmpty(locations): # 인접한 빈칸이 가장 많은 자리 목록
             max_value = temp
         elif temp == max_value:
             result_list.append((x,y))
-        # print(temp,max_value,x,y)
-    # print("Hi 2")
+
     return result_list
 
 
-def compareRowAndColumn(locations):
-    # (1,1) (1,3)
+def compareRowAndColumn(locations): # 행과 열의 인덱스가 가장 작은 자리 (3번 조건)
+
     result_list = []
     result = (0,0)
     min_x,min_y = 21, 21
@@ -84,15 +79,13 @@ def compareRowAndColumn(locations):
             min_x = x
         elif x == min_x:
             result_list.append((x,y))
-
-    # print(result_list)
     
-    for coor in result_list:
+    for coor in result_list: # 열 구별
         x,y = coor[0], coor[1]
         if y < min_y:
             result = (x,y)
             min_y = y
-    # print("Hi 3")
+
     return result
 
 for index in sequence:
@@ -101,8 +94,6 @@ for index in sequence:
     final_location = compareRowAndColumn(empty_list)
     x,y = final_location[0], final_location[1]
     location[x][y] = index
-
-# print(location)
 
 for i in range(n):
     for j in range(n):

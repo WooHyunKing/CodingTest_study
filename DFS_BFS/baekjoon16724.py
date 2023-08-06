@@ -4,7 +4,9 @@ n,m = map(int,input().split())
 
 area = [list(input()) for _ in range(n)]
 
-visited = [[False]*m for _ in range(n)]
+visited = [[0]*m for _ in range(n)]
+
+index = 0
 
 count = 0
 
@@ -40,14 +42,13 @@ def dfs(x,y):
             else:
                 visited[x][y] = False
                 return False
-        else:
+        else: # 이미 방문한 위치인 경우
             if temp_x == nx and temp_y == ny:
                 return True
             else:
                 visited[x][y] = False
                 return False
     else:
-        visited[x][y] = False
         return False
 
 for i in range(n):

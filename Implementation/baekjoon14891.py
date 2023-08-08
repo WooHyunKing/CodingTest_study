@@ -1,73 +1,59 @@
 gear = [[0]*8 for _ in range(4)]
 rotate_list = []
 
+score = 0
+
 for i in range(4):
     gear[i] = list(map(int,list(input())))
 
-def rotate_right(lst):
+def rotate_right(lst): # 시계 방향으로 회전시키는 함수
     lst.insert(0,lst.pop())
 
-def rotate_left(lst):
+def rotate_left(lst): # 반시계 방향으로 회전시키는 함수
     lst.append(lst.pop(0))    
 
 k = int(input())
 
-for i in range(k):
+for i in range(k): # 회전 목록 입력받고 저장
     number, direction = map(int,input().split())
     rotate_list.append((number-1,direction,"both"))
 
-def rotate(n,direct,prop_direct):
-    
-    if n == 0: # 첫번째 기어일 경우
-        if gear[n] != gear[n+1]: # 극이 다르면
-            if direct == 1:
-                rotate_list.append((n+1,-1,"right"))
-            else:
-                rotate_list.append((n+1,1,"right"))
+def rotate(index,d): # 주어진 방향으로 회전시키는 함수
+    if d == 1:
+        rotate_right(gear[index])
+    elif d == -1:
+        rotate_left(gear[index])
+
+def propagation(n,direct,prop_direct): # 회전 전파시키는 함수
+
+    if prop_direct == "both": # 회전 전파 방향이 양쪽 일때
+        if n - 1 >= 0 and gear[n][6] != gear[n-1][2]: # 서로 극이 다른 경우 왼쪽으로 전파(재귀방식)
+            propagation(n-1,-direct,"left")
+            
+        if n + 1 < 4 and gear[n][2] != gear[n+1][6]: # 서로 극이 다른 경우 오른쪽으로 전파(재귀방식)
+            propagation(n+1,-direct,"right")
         
-        if direct == 1:
-            rotate_right(gear[0])
-        else:
-            rotate_left(gear[0])
+    elif prop_direct == "left": # 회전 전파 방향이 왼쪽 일때
+        if n - 1 >= 0 and gear[n][6] != gear[n-1][2]: # 서로 극이 다른 경우 왼쪽으로 전파(재귀방식)
+            propagation(n-1,-direct,"left")
 
-    # elif n == 1:
-        
-# gear = [[[0]*3 for _ in range(3)] for _ in range(4)]
+    elif prop_direct == "right": # 회전 전파 방향이 오른쪽 일때
+        if n + 1 < 4 and gear[n][2] != gear[n+1][6]: # 서로 극이 다른 경우 오른쪽으로 전파(재귀방식)
+            propagation(n+1,-direct,"right")
 
-# def rotate_90(matrix):
-    
-#     temp = [[0]*3 for _ in range(3)]
-    
-#     for i in range(3):
-#         for j in range(3):
-#             temp[j][3-i-1] = matrix[i][j]
+    rotate(n,direct) # 회전
 
-#     return temp
+for gear_index,rotate_d, rotate_prop in rotate_list:
+    propagation(gear_index,rotate_d,rotate_prop)
 
+for i in range(4): # 점수 계산
+    if i == 0 and gear[i][0] == 1:
+        score += 1
+    elif i == 1 and gear[i][0] == 1:
+        score += 2
+    elif i == 2 and gear[i][0] == 1:
+        score += 4
+    elif i == 3 and gear[i][0] == 1:
+        score += 8
 
-# for i in range(4):
-#     gear_status = list(map(int,list(input())))
-
-#     gear[i][0][1] = gear_status[0]
-#     gear[i][0][2] = gear_status[1]
-#     gear[i][1][2] = gear_status[2]
-#     gear[i][2][2] = gear_status[3]
-#     gear[i][2][1] = gear_status[4]
-#     gear[i][2][0] = gear_status[5]
-#     gear[i][1][0] = gear_status[6]
-#     gear[i][0][0] = gear_status[7]
-
-# for i in gear:
-#     for j in i:
-#         print(j)
-#     print()
-
-# for i in range(4):
-#     gear[i] = rotate_90(gear[i])
-
-# for i in gear:
-#     for j in i:
-#         print(j)
-#     print()
-
-# # 
+print(score)

@@ -24,8 +24,8 @@ def move(d,s): # 구름 이동 및 비 내리는 함수
     
     for x,y in cloud_list:
         temp_x, temp_y = x+dx[d-1]*s, y+dy[d-1]*s
-        temp_x = (temp_x % n + n) % n
-        temp_y = (temp_y % n + n) % n
+        temp_x = temp_x % n
+        temp_y = temp_y % n
         area[temp_x][temp_y] += 1
         
         temp_list.add((temp_x, temp_y))

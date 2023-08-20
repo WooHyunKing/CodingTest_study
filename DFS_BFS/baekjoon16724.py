@@ -2,25 +2,24 @@ import sys
 sys.setrecursionlimit(10**5)
 n,m = map(int,input().split())
 
-area = [list(input()) for _ in range(n)]
+area = [list(sys.stdin.readline().rstrip()) for _ in range(n)]
 
-visited = [[0]*m for _ in range(n)]
-
-index = 0
+visited = [[-1]*m for _ in range(n)]
 
 count = 0
 
-temp_x, temp_y = 0, 0
+index = 0
 
-dx = [-1,1,0,0]
-dy = [0,0,-1,1]
+def dfs(x,y,idx):
 
-def dfs(x,y):
+    global count
 
-    if visited[x][y]:
-        return False
+    if visited[x][y] != -1:
+        if visited[x][y] == idx:
+            count += 1
+        return
     
-    visited[x][y] = True
+    visited[x][y] = idx
 
     if area[x][y] == "D":
         nx = x + 1
@@ -34,27 +33,12 @@ def dfs(x,y):
     elif area[x][y] == "U":
         nx = x - 1
         ny = y
-        
-    if 0 <=  nx < n and 0 <= ny < m:
-        if not visited[nx][ny]:
-            if dfs(nx,ny):
-                return True
-            else:
-                visited[x][y] = False
-                return False
-        else: # 이미 방문한 위치인 경우
-            if temp_x == nx and temp_y == ny:
-                return True
-            else:
-                visited[x][y] = False
-                return False
-    else:
-        return False
+
+    dfs(nx,ny,idx)
 
 for i in range(n):
     for j in range(m):
-        temp_x, temp_y = i,j
-        if dfs(i,j):
-            count += 1
-
+        dfs(i,j,index)
+        index += 1
+    
 print(count)

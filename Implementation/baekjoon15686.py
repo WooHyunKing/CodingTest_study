@@ -1,4 +1,3 @@
-from collections import deque
 import itertools
 
 def calculate_distance(r1,c1,r2,c2):
@@ -7,9 +6,6 @@ def calculate_distance(r1,c1,r2,c2):
 n, m = map(int,input().split())
 
 input_city = [list(map(int,input().split())) for _ in range(n)]
-
-dx = [-1,1,0,0]
-dy = [0,0,-1,1]
 
 chicken_house_list = set()
 house_list = set()

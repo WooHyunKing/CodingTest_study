@@ -40,5 +40,6 @@ for i in range(n):
     for j in range(m):
         dfs(i,j,index)
         index += 1
-    
+for i in visited:
+    print(i)
 print(count)

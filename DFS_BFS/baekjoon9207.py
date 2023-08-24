@@ -13,7 +13,7 @@ def move(movetime):
 
     global min_count, min_movement
 
-    pin_list = []
+    pin_list = [] # 핀 목록
 
     for i in range(5):
         for j in range(9):

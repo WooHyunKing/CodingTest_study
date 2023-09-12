@@ -7,9 +7,6 @@ temp = []
 answer = []
 
 def backtracking():
-    global is_used
-    global temp
-    global answer
     
     if len(temp) == m:
         answer.append(' '.join(map(str,temp)))

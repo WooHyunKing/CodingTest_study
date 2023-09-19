@@ -11,6 +11,7 @@ for i in range(1,n+1):
 
 def dfs(index):
     global answer
+    
     for i in graph[index]:
         if visited[i]:
             answer |= set(temp)

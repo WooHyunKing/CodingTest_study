@@ -37,4 +37,3 @@ for _ in range(t):
 
 for i,value in enumerate(answer):
     print(f"#{i+1} {value}")
-        

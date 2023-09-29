@@ -25,8 +25,3 @@ for i in range(unhappy):
         index = 0
 
 print(sum([getUnhappy(x) for x in area]))
-
-# if n >= unhappy:
-#     print(unhappy)
-# else:
-#     print((n) + getUnhappy(unhappy-(n)))

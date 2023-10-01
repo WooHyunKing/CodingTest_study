@@ -1,23 +1,21 @@
 n = int(input())
 
-score = [0]*n
-dp = [0]*n
+scores = []
 
 for i in range(n):
-    score[i] = int(input())
+    scores.append(int(input()))
 
 if n == 1:
-    print(score[0])
-elif n == 2:
-    print(score[0]+score[1])
-elif n == 3:
-    print(score[0]+max(score[1],score[2]))
-else:
-    dp[0] = score[0]
-    dp[1] = score[0] + score[1]
-    dp[2] = score[2] + max(score[1],score[0])
-    
-    for i in range(3,n):
-        dp[i] = score[i] + max(score[i-1] + dp[i-3], dp[i-2])
+    print(scores[0])
 
-    print(dp[n-1])
+else:
+    dp = [[0]*2 for _ in range(n+1)]
+
+    dp[0][0], dp[1][0], dp[1][1] = scores[0], scores[1], scores[0]+scores[1]
+
+    for i in range(2,n):
+        
+        dp[i][0] = max(dp[i-2][0],dp[i-2][1]) + scores[i]
+        dp[i][1] = dp[i-1][0] + scores[i]
+
+    print(max(dp[n-1][0],dp[n-1][1]))

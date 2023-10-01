@@ -1,5 +1,3 @@
-from collections import deque
-
 n, m = map(int,input().split())
 
 # Knight, Queen, Pawn의 개수는 각각 100을 넘지 않는 음이 아닌 정수
@@ -47,44 +45,22 @@ def queen_move(x,y): # 퀸 이동 함수
             nx = nx + dx[i]
             ny = ny + dy[i]
             if 0 <= nx < n and 0 <= ny < m:
-                if area[nx][ny] == -1: # 처음에 틀렸던 부분(어떤 퀸이 어떤 칸에 먼저 방문했다고 해서, 다른 퀸이 그 칸을 지나가면 안 되는 건 아니다.)
+                if area[nx][ny] == -1:
                     break
                 area[nx][ny] = 1
 
 def knight_move(x,y): # 나이트 이동 함수
-
     for i in range(8):
         nx = x + k_dx[i]
         ny = y + k_dy[i]
         if 0 <= nx < n and 0 <= ny < m:
             area[nx][ny] = 1
 
-    if is_exist(nx,ny):
-        return nx,ny
-    else:
-        return -1,-1
-
-def is_exist(x,y): # 해당 좌표에서 나이트가 이동할 경로가 있는지 확인하는 함수
-    is_exist = False
-    for i in range(8):
-        nx = x + k_dx[i]
-        ny = y + k_dy[i]
-        if 0 <= nx < n and 0 <= ny < m and area[nx][ny] == 0:
-            is_exist = True
-    return is_exist
-
 for queen_x,queen_y in queen_list: # 퀸 이동
     queen_move(queen_x-1,queen_y-1)
 
-queue = deque(knight_list)
-
-while queue: # 더이상 이동할 나이트가 없을 때까지 진행
-    knight_x, knight_y = queue.popleft()
-
-    result_x,result_y = knight_move(knight_x-1,knight_y-1)
-
-    if not result_x == -1 and result_y == -1:
-        queue.append((result_x,result_y))
+for knight_x,knight_y in knight_list: # 나이트 이동
+    knight_move(knight_x-1,knight_y-1)
 
 for i in range(n):
     for j in range(m):
@@ -92,4 +68,3 @@ for i in range(n):
             answer += 1
 
 print(answer)
-        

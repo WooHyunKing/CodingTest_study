@@ -14,6 +14,8 @@ def dfs(x,y,movement,value):
 
     global answer
 
+    print(x,y,movement,value)
+
     if answer >= value + area[x][y] + max_value*(4-movement):
         return
 
@@ -29,7 +31,7 @@ def dfs(x,y,movement,value):
         if 0 <= nx < n and 0 <= ny < m and not visited[nx][ny]:
             dfs(nx,ny,movement+1,value + area[x][y])
             
-    visited[x][y] = False
+    # visited[x][y] = False
 
 def other(x,y):
     global answer

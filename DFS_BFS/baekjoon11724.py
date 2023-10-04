@@ -10,7 +10,7 @@ for _ in range(m):
   graph[x].append(y)
   graph[y].append(x)
 
-def dfs(graph,v,visited):
+def dfs(graph,v):
 
   if visited[v]:
     return False
@@ -19,12 +19,12 @@ def dfs(graph,v,visited):
 
   for i in graph[v]:
     if not visited[i]:
-      dfs(graph,i,visited)
+      dfs(graph,i)
 
   return True
 
 for i in range(1,n+1):
-  if dfs(graph,i,visited):
+  if dfs(graph,i):
     count += 1
 
 print(count)

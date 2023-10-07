@@ -31,7 +31,7 @@ def dijkstra(start_index):
     visited[start_index] = True
 
     for node,cost in graph[start_index]:
-        distance[node] = min(distance[node],cost)
+        distance[node] = min(distance[node],cost) # 하나의 노드에서 한 노드에 대한 간선이 2개 이상일 수 있으므로 항상 최소값으로 갱신
     
     for _ in range(n-1):
         current = get_smallest_node()

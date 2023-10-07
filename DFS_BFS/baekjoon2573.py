@@ -17,6 +17,7 @@ area = [list(map(int,input().split())) for _ in range(n)]
 def count_area():
     count = 0
     visited = [[False]*m for _ in range(n)]
+    
     # 빙산을 체크하는 BFS
     def bfs(x,y):
 
@@ -54,6 +55,7 @@ def check_all_malt():
                 return False
     return True
 
+# 상하좌우에 존재하는 바다의 개수를 구하는 함수
 def count_sea(x,y,area):
     count = 0
     for i in range(4):

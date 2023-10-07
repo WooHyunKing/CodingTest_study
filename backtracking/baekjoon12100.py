@@ -11,10 +11,9 @@ n = int(input())
 zone = [list(map(int,input().split())) for _ in range(n)]
 
 max_value = -1
-
-
 # 왼쪽으로 이동시키는 함수
-def moveLeft():
+def moveLeft(zone):
+    zone = copy.deepcopy(zone)
     marged = [[False]*n for _ in range(n)]
     
     for i in range(n): # 행 
@@ -33,9 +32,10 @@ def moveLeft():
                 else:
                     break
 
-    return
+    return zone
 
-def moveRight():
+def moveRight(zone):
+    zone = copy.deepcopy(zone)
     marged = [[False]*n for _ in range(n)]
 
     for i in range(n):
@@ -51,14 +51,14 @@ def moveRight():
                 elif zone[i][k] == 0:
                     zone[i][k] = zone[i][k-1]
                     zone[i][k-1] = 0
-
                 else:
                     break
 
-    return
+    return zone
 
 # 위로 이동시키는 함수
-def moveUp():
+def moveUp(zone):
+    zone = copy.deepcopy(zone)
     marged = [[False]*n for _ in range(n)]
 
     for i in range(n): # 열
@@ -77,9 +77,10 @@ def moveUp():
                 else:
                     break
 
-    return
+    return zone
 # 아래로 이동시키는 함수
-def moveDown():
+def moveDown(zone):
+    zone = copy.deepcopy(zone)
     marged = [[False]*n for _ in range(n)]
     
     for i in range(n):
@@ -97,44 +98,28 @@ def moveDown():
                     zone[k-1][i] = 0
                 else:
                     break
-    return
+    return zone
 
 # 최댓값을 찾는 함수
-def searchMaxValue():
+def searchMaxValue(zone):
     global max_value
     for i in range(n):
         for j in range(n):
             if zone[i][j] > max_value:
                 max_value = zone[i][j]
 
-def dfs(depth):
-    
-    global zone
+def dfs(depth,zone):
 
-    searchMaxValue()
+    searchMaxValue(zone)
     
     if depth == 5:
         return
     
-    temp_zone = copy.deepcopy(zone)
+    dfs(depth+1,moveUp(zone))
+    dfs(depth+1,moveDown(zone))
+    dfs(depth+1,moveLeft(zone))
+    dfs(depth+1,moveRight(zone))
 
-    
-    moveUp()
-    dfs(depth+1)
-    zone = copy.deepcopy(temp_zone)
-    
-    moveDown()
-    dfs(depth+1)
-    zone = copy.deepcopy(temp_zone)
-
-    moveLeft()
-    dfs(depth+1)
-    zone = copy.deepcopy(temp_zone)
-
-    moveRight()
-    dfs(depth+1)
-    zone = copy.deepcopy(temp_zone)
-
-dfs(0)
+dfs(0,zone)
 
 print(max_value)

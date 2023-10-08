@@ -56,6 +56,16 @@ def levelorder(tree):
         if right < len(tree) and tree[right] is not None:
             queue.append(right)
 
+def getChild(index):
+    print(f"parent : {tree[index]}")
+    left,right = index*2 + 1, index*2 + 2
+    
+    if left < len(tree) and tree[left] is not None:
+        print(tree[left])
+    if right < len(tree) and tree[right] is not None:
+        print(tree[right])
+
+getChild(0)
 
 # 부모 노드 구하기
 for i in range(n-1,0,-1):

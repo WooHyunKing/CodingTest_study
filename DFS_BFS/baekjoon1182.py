@@ -19,12 +19,6 @@ def dfs(total,index,depth):
             visited[i] = True
             dfs(total + data[i], i,depth+1)
             visited[i] = False
-    
-    # for i,value in enumerate(data):
-    #     if i >= depth and not visited[i]:
-    #         visited[i] = True
-    #         dfs(total + [value],depth+1)
-    #         visited[i] = False
 
 dfs(0,0,0)
 

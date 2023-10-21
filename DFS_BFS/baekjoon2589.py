@@ -13,8 +13,6 @@ n, m = map(int,input().split())
 
 area = [list(input().rstrip()) for _ in range(n)]
 
-visited = [[-1]*m for _ in range(n)]
-
 def bfs(x,y):
 
     global max_value

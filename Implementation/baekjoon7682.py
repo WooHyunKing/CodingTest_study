@@ -12,7 +12,7 @@ def check_is_full():
 
     return is_full
 
-def check_tictac():
+def check_end():
 
     if check_is_full():
         return True
@@ -25,7 +25,7 @@ def check_tictac():
 
 def dfs(current):
     
-    if check_tictac():
+    if check_end():
         temp = ""
         for row in area:
             temp += "".join(row)

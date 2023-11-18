@@ -1,4 +1,4 @@
-
+from collections import deque
 
 def solution(land):
     answer = 0
@@ -8,33 +8,42 @@ def solution(land):
 
     n = len(land)
     m = len(land[0])
-
-    def dfs(x,y):
-
-        nonlocal area
-
-        if visited[x][y] or land[x][y] == 0:
-            return False
+    
+    visited = [[False]*m for _ in range(n)]
+    total = [0]*m
+    
+    def bfs(x,y):
         
-        area += 1
+        if visited[x][y]:
+            return
+        
         visited[x][y] = True
+        
+        y_list = set()
+        count = 0
+        
+        queue = deque([(x,y)])
+        
+        while queue:
+            temp_x,temp_y = queue.popleft()
+            count += 1
+            y_list.add(temp_y)
+            
+            for i in range(4):
+                nx = temp_x + dx[i]
+                ny = temp_y + dy[i]
+                
+                if 0 <= nx < n and 0 <= ny < m and land[nx][ny] == 1 and not visited[nx][ny]:
+                    queue.append((nx,ny))
+                    visited[nx][ny] = True
 
-        for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
+        for i in y_list:
+            total[i] += count
+            
+    
+    for i in range(n):
+        for j in range(m):
+            if not visited[i][j] and land[i][j] == 1:
+                bfs(i,j)
 
-            if 0 <= nx < n and 0 <= ny < m and not visited[nx][ny] and land[nx][ny] == 1:
-                dfs(nx,ny)
-
-        return True
-
-    # 열 별로 체크
-
-    for j in range(m):
-        visited = [[False]*m for _ in range(n)]
-        area = 0
-        for i in range(n):
-            dfs(i,j)
-        answer = max(area,answer)
-
-    return answer
+    return max(total)

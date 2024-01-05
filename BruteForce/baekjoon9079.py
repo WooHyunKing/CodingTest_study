@@ -1,18 +1,8 @@
-# H - 앞, T - 뒷
-
-# 모두 같은 면을 보이도록 한다
-# 한 행이나 한 열의 모든 동전, 또는 대각선의 모든 동전을 한번에 뒤집어야 함
-
-# 최소 횟수의 연산으로 모든 면이 같도록 만든다
-
-# 모두 같은 면이 보이도록 하는 최소 연산 횟수, 불가능하면 -1
-
 from collections import deque
 
 t = int(input())
 
-
-def reverse_row(area, index):
+def reverse_row(area, index): # 행 단위로 동전을 뒤집는 함수
     temp = [item[:] for item in area]
     for i in range(3):
         if area[index][i] == "H":
@@ -21,7 +11,7 @@ def reverse_row(area, index):
             temp[index][i] = "H"
     return temp
 
-def reverse_col(area,index):
+def reverse_col(area,index): # 열 단위로 동전을 뒤집는 함수
     temp = [item[:] for item in area]
     for i in range(3):
         if area[i][index] == "H":
@@ -30,7 +20,7 @@ def reverse_col(area,index):
             temp[i][index] = "H"
     return temp
 
-def reverse_cross(area):
+def reverse_cross(area): # 대각선 단위로 동전을 뒤집는 함수(왼 -> 오)
     temp = [item[:] for item in area]
     for i in range(3):
         if area[i][i] == "H":
@@ -39,7 +29,7 @@ def reverse_cross(area):
             temp[i][i] = "H"
     return temp
 
-def reverse_cross_two(area):
+def reverse_cross_two(area): # 대각선 단위로 동전을 뒤집는 함수(오 -> 왼)
     temp = [item[:] for item in area]
     for i in range(3):
         if area[i][2-i] == "H":
@@ -48,15 +38,12 @@ def reverse_cross_two(area):
             temp[i][2-i] = "H"
     return temp
 
-def check_all_same(area):
-    
+def check_all_same(area): # 모든 값이 동일한지 여부를 체크하는 함수
     first = area[0][0]
-
     for i in range(3):
         for j in range(3):
             if area[i][j] != first:
                 return False
-            
     return True
 
 for _ in range(t):

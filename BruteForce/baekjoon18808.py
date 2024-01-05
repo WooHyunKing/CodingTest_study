@@ -9,14 +9,14 @@ for _ in range(k):
 
     sticker = [list(map(int,input().split())) for _ in range(r)]
 
-    def check_available(paper,x,y,sticker,sticker_row_len,sticker_col_len):
+    def check_available(paper,x,y,sticker,sticker_row_len,sticker_col_len): # 스티커를 붙일 수 있는지 확인하는 함수
         for i in range(sticker_row_len):
             for j in range(sticker_col_len):
                 if sticker[i][j] == 1 and paper[x+i][y+j] == 1:
                     return False
         return True
     
-    def add_area(paper,x,y,sticker,sticker_row_len,sticker_col_len):
+    def add_area(paper,x,y,sticker,sticker_row_len,sticker_col_len): # 스티커를 붙이는 함수
         temp_paper = [item[:] for item in paper]
         for i in range(sticker_row_len):
             for j in range(sticker_col_len):
@@ -24,7 +24,7 @@ for _ in range(k):
                     temp_paper[x+i][y+j] = 1
         return temp_paper
     
-    def rotate(sticker):
+    def rotate(sticker): # 2차원 배열을 90도 회전시키는 함수
         row_len = len(sticker)
         col_len = len(sticker[0])
 
@@ -37,7 +37,7 @@ for _ in range(k):
         return new_sticker
         
     
-    def paint(sticker):
+    def paint(sticker): # 종이에 스티커를 붙이기 위해 모든 경우의 수를 시도하는 함수(성공하면 true 반환)
         global paper
         for i in range(n):
             for j in range(m):
@@ -50,10 +50,10 @@ for _ in range(k):
                         return True
         return False
 
-    if paint(sticker):
+    if paint(sticker): # 종이에 바로 스티커를 붙이는데 성공하면 바로 다음 스티커로 continue
         continue
 
-    for _ in range(3):
+    for _ in range(3): # 90도 회전하면서 스티커를 붙일 수 있는지 확인, 붙이는데 성공하면 break
         sticker = rotate(sticker)
         if paint(sticker):
             break

@@ -12,7 +12,7 @@ def dfs(numbers,num_set):
 
     length = len(numbers)
     
-    if length == k+1:
+    if length == k+1: # 숫자의 개수가 k+1를 만족할 경우 함수 종료
         final_value = int("".join(list(map(str,numbers))))
         if final_value < minimum:
             minimum = final_value

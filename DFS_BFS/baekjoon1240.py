@@ -28,19 +28,19 @@ def bfs(start,end,distance): # 그래프 탐색을 위한 BFS 함수
     queue = deque([(start,distance)])
     visited = [False]*(n+1)
 
-    visited[start] = True
+    visited[start] = True 
 
     while queue:
         current, summary = queue.popleft()
 
-        if current == end:
+        if current == end: # 최종 노드에 도착한 경우 누적된 거리를 출력하고 종료
             print(summary)
             return
 
-        for next_node,value in graph[current]:
-            if not visited[next_node]:
+        for next_node,value in graph[current]: # 다음 노드번호와 거리
+            if not visited[next_node]: # 만약에 아직 방문하지 않았다면
                 visited[next_node] = True
-                queue.append((next_node,summary + value))
+                queue.append((next_node,summary + value)) # 방문처리와 동시에 탐색
     
 
 for x, y in cases: # 노드간의 거리를 찾고자 하는 노드쌍을 DFS/BFS로 처리

@@ -1,0 +1,1 @@
+{"name":"Local: baekjoon1388","url":"/Users/woohyun/Desktop/CodingTest_study/baekjoon1388.py","tests":[{"id":1710576664449,"input":"4 4\n----\n----\n----\n----","output":"4"},{"id":1710576693686,"input":"","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/woohyun/Desktop/CodingTest_study/baekjoon1388.py","group":"local","local":true}

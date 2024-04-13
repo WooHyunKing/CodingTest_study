@@ -1,6 +1,24 @@
 import sys
-from itertools import combinations
 from collections import deque
+
+def combination(arr,r):
+    
+    def generate(elements):
+        if len(elements) == r:
+            return [elements[:]]
+        
+        cases = []
+
+        start = arr.index(elements[-1]) + 1 if elements else 0
+
+        for i in range(start,len(arr)):
+            elements.append(arr[i])
+            cases.extend(generate(elements))
+            elements.pop()
+
+        return cases
+
+    return generate([])
 
 # 구역을 두 개의 선거구로 나눠야 하고, 각 구역은 두 선거구 중 하나에 포함되어야 한다.
 # 선거구는 구역을 적어도 하나 포함해야 하고, 한 선거구에 포함되어 있는 구역은 모두 연결되어 있어야 한다.
@@ -54,7 +72,7 @@ for i in range(n):
         graph[i+1].add(neighbors[j])
 
 for i in range(1,n//2+1):
-    cases = list(combinations([i for i in range(1,n+1)], i))
+    cases = list(combination([i for i in range(1,n+1)], i))
 
     for c in cases:
         check(c)

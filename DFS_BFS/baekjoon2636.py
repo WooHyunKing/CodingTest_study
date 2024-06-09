@@ -14,20 +14,18 @@ r, c = map(int,input().split())
 
 area = [list(map(int,input().split())) for _ in range(r)]
 
-melt_counts = []
+melt_count_list = []
 
 time = 0
 
-def bfs():
+def melt():
     
-    queue = deque()
-    queue.append((0,0))
-    visited[0][0] = True
+    queue = deque([(0,0)])
 
-    count = 0
-    
+    melt_list = []
+
     while queue:
-
+        
         x, y = queue.popleft()
 
         for i in range(4):
@@ -35,28 +33,76 @@ def bfs():
             ny = y + dy[i]
 
             if 0 <= nx < r and 0 <= ny < c and not visited[nx][ny]:
-                if area[nx][ny] == 0:
-                    queue.append((nx,ny))
                 if area[nx][ny] == 1:
-                    area[nx][ny] = 0
-                    count += 1
+                    melt_list.append((nx,ny))
+                elif area[nx][ny] == 0:
+                    queue.append((nx,ny))
+
                 visited[nx][ny] = True
-    melt_counts.append(count)
 
-    return count
+    for mx, my in melt_list:
+        area[mx][my] = 0
 
+    melt_count_list.append(len(melt_list))
+
+    return len(melt_list)
+    
 while True:
+    
     visited = [[False]*c for _ in range(r)]
 
-    melt_count = bfs()
-    
-    if melt_count == 0:
+    count = melt()
+
+    if count == 0:
         print(time)
-        print(melt_counts[-2])
+        print(melt_count_list[-2])
         break
 
     time += 1
     
 
+    
 
-        
+
+# melt_counts = []
+
+# time = 0
+
+# def bfs():
+    
+#     queue = deque()
+#     queue.append((0,0))
+#     visited[0][0] = True
+
+#     count = 0
+    
+#     while queue:
+
+#         x, y = queue.popleft()
+
+#         for i in range(4):
+#             nx = x + dx[i]
+#             ny = y + dy[i]
+
+#             if 0 <= nx < r and 0 <= ny < c and not visited[nx][ny]:
+#                 if area[nx][ny] == 0:
+#                     queue.append((nx,ny))
+#                 if area[nx][ny] == 1:
+#                     area[nx][ny] = 0
+#                     count += 1
+#                 visited[nx][ny] = True
+#     melt_counts.append(count)
+
+#     return count
+
+# while True:
+#     visited = [[False]*c for _ in range(r)]
+
+#     melt_count = bfs()
+    
+#     if melt_count == 0:
+#         print(time)
+#         print(melt_counts[-2])
+#         break
+
+#     time += 1

@@ -21,14 +21,15 @@ datas = []
 
 for i in range(n):
     for j in range(n):
-        for k in range(4):
+        for k in range(4): # 각 (i,j)를 기준으로 만들 수 있는 모든 쌍을 저장
             nx, ny = i+dx[k], j+dy[k]
             if 0 <= nx < n and 0 <= ny < n:
                 datas.append(((i,j),(nx,ny)))
 
-if n == 2:
+# 모든 쌍으로 만들 수 있는 경우의 수 전부 구하기
+if n == 2: # n=2 인 경우에는 2개가 최대
     cases = list(combinations(datas,2))
-else:
+else: # n=3, n=4 인 경우에는 4개가 최대
     cases = list(combinations(datas,4))
 
 for case in cases:
@@ -36,11 +37,11 @@ for case in cases:
     coors = []
     sum = 0
 
-    for twice in case:
-        coors += [twice[0], twice[1]]
-        sum += (heights[twice[0][0]][twice[0][1]] + heights[twice[1][0]][twice[1][1]])
-        
-    if len(coors) == len(set(coors)):
+    for twice in case: 
+        coors += [twice[0], twice[1]] # 좌표들을 종합
+        sum += (heights[twice[0][0]][twice[0][1]] + heights[twice[1][0]][twice[1][1]]) # 모든 나무의 키를 더해줌
+
+    if len(coors) == len(set(coors)): # 중복되는 좌표가 없을 경우 answer 업데이트
         answer = max(answer,sum)
 
 print(answer)

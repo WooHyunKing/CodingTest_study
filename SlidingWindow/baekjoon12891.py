@@ -27,11 +27,11 @@ for i in range(p_length):
 if dictionary['A'] >= a and dictionary['C'] >= c and dictionary['G'] >= g and dictionary['T'] >= t:
     answer += 1
 
-for i in range(p_length,s_length+1):
+for i in range(p_length,s_length):
     dictionary[string[i-p_length]] -= 1
     dictionary[string[i]] += 1
 
-    if dictionary['A'] >= a and dictionary['C'] >= c and dictionary['G'] >= g and dictionary['A'] >= t:
+    if dictionary['A'] >= a and dictionary['C'] >= c and dictionary['G'] >= g and dictionary['T'] >= t:
         answer += 1
 
 print(answer)

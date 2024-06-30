@@ -1,8 +1,8 @@
 n = int(input())
 
-start, end, count, sum = 1, 1, 1, 1
+start, end, count, sum = 1, 1, 0, 1
 
-while end < n:
+while end <= n:
     if sum < n:
         end += 1
         sum += end

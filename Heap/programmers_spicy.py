@@ -17,12 +17,7 @@ def solution(scoville, K):
     
     while True:
 
-#         bool_list = [x for x in hq if x >= K]
-        
-#         if len(bool_list) == len(hq):
-#             break
-
-        if hq and len(hq) == 1 and hq[0] < k:
+        if hq and len(hq) == 1 and hq[0] < K:
             return -1
             
         if hq and hq[0] >= K:

@@ -74,21 +74,26 @@ for i in range(m):
     for j in range(n):
         block_info = get_block_info(area[i][j])
 
-        visited = [[False]*n for _ in range(m)]
-
         if block_info[0] == '1':
+            visited = [[False]*n for _ in range(m)]
             area[i][j] -= 1
             maximum = max(maximum,bfs(i,j))
             area[i][j] += 1
+
         if block_info[1] == '1':
+            visited = [[False]*n for _ in range(m)]
             area[i][j] -= 2
             maximum = max(maximum,bfs(i,j))
             area[i][j] += 2 
+
         if block_info[2] == '1':
+            visited = [[False]*n for _ in range(m)]
             area[i][j] -= 4
             maximum = max(maximum,bfs(i,j))
             area[i][j] += 4
+ 
         if block_info[3] == '1':
+            visited = [[False]*n for _ in range(m)]
             area[i][j] -= 8
             maximum = max(maximum,bfs(i,j))
             area[i][j] += 8

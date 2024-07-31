@@ -1,12 +1,3 @@
-# 서로소 집합 자료구조란 ? 서로소 부분 집합들로 나누어진 원소들의 데이터를 처리하기 위한 자료구조
-# 서로소 집합 자료구조는 union과 find이 2개의 연산으로 조작할 수 있다.
-
-# Union 연산 : 2개의 원소가 포함된 집합을 하나의 집합으로 합치는 연산
-# Find 연산 : 특정한 원소가 속한 집합이 어떤 집합인지 알려주는 연산
-
-# 두 집합이 서로소 관계인지 확인할 수 있는 자료구조
-# 서로소 집합 자료구조를 구현할 때는 '트리' 자료구조를 사용하여 집합을 표현
-
 #노드의 개수와 간선(union 연산)의 개수 입력받기
 v, e = map(int,input().split())
 
@@ -36,19 +27,20 @@ def union_parent(parent, a, b):
     else:
         parent[a] = b
 
-# union 연산을 각각 수행
+cycle = False
+
 for i in range(e):
     a, b = map(int,input().split())
-    union_parent(parent, a, b)
 
-# 각 원소가 속한 집합 출력
-print("각 원소가 속한 집합 : ", end="")
-for i in range(1,v+1):
-    print(find_parent(parent,i), end=" ")
+    # 사이클이 발생한 경우 종료
+    if find_parent(parent, a) == find_parent(parent, b):
+        cycle = True
+        break
+    # 사이클이 발생하지 않았다면 Union수행
+    else:
+        union_parent(parent, a, b)
 
-print()
-
-# 부모 테이블 내용 출력
-print("부모 테이블 내용 : ",end="")
-for i in range(1,v+1):
-    print(parent[i],end=" ")
+if cycle:
+    print("사이클이 발생했습니다.")
+else:
+    print("사이클이 발생하지 않았습니다.")

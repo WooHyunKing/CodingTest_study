@@ -1,8 +1,6 @@
 import sys
-from collections import deque
 
 input = sys.stdin.readline
-
 
 # 마을은 N개의 집과 그 집들을 연결하는 M개의 길로 이루어져 있다.(양방향)
 # 각 길마다 길을 유지하는데 드는 유지비가 있다. 

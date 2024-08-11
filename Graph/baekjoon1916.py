@@ -126,4 +126,4 @@ target_start, target_dest = map(int,input().split())
 
 dijkstra(target_start)
 
-print(distacne[target_dest])
+print(distance[target_dest])

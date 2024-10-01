@@ -38,7 +38,7 @@
 #     return generate([])
 
 def combination(arr,k):
-    
+
     cases = []
 
     def dfs(elements, index):
@@ -54,4 +54,4 @@ def combination(arr,k):
 
     return cases        
 
-print(combination([1, 2, 3, 4, 5], 2))
+print(combination([1, 2, 3, 4], 3))

@@ -69,7 +69,7 @@ def permutation(arr,k):
 
     return cases
 
-print(permutation([1,2,3,4],2))
+print(permutation([1,2,3,4],3))
         
     
     

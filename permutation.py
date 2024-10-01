@@ -56,7 +56,8 @@ def permutation(arr,k):
     def dfs(elements):
 
         if len(elements) == k:
-            return cases.append(elements)
+            cases.append(elements)
+            return 
 
         for i in range(len(arr)):
             if not visited[i]:

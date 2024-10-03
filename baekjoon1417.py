@@ -38,5 +38,4 @@ while my_vote <= -hq[0]:
     heapq.heappush(hq,-(maximum_vote-1))
     answer += 1
 
-
 print(answer)

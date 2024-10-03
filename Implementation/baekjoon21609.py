@@ -31,22 +31,22 @@ score = 0
 
 dx, dy = [-1,1,0,0], [0,0,-1,1]
 
-def get_group(x, y): # 모든 블록 그룹을 찾는 함수(반환값 : 블록의 좌표 값들, 크기, 무지개 블록 수, 기준 블록의 행, 기준 블록의 열)
+def get_group(x, y): # 해당 좌표의 블록 그룹의 정보를 반환하는 함수(반환 값 : 블록의 좌표 값들, 블록 그룹의 크기, 무지개 블록 수, 기준 블록의 행, 기준 블록의 열)
 
-    coors = [(x,y)]
-    coors_2 = [(x,y)]
-    visited_2 = [[False]*N for _ in range(N)]
+    coors = [(x,y)] # 블록 그룹의 모든 블록을 저장하는 배열
+    coors_2 = [(x,y)] # 무지개 블록이 아닌 블록만 저장하는 배열(블록 그룹의 기준 블록은 무지개 블록이 아닌 블록)
+    visited_2 = [[False]*N for _ in range(N)] # 임시 방문처리 확인 배열
 
-    count = 1
-    rainbow_count = 0
+    count = 1 # 블록 그룹의 개수(크기)
+    rainbow_count = 0 # 무지개 블록의 개수
     
     q = deque([(x,y)])
 
-    color = area[x][y]
+    color = area[x][y] # 초기 블록의 색깔(일반 블록의 색은 모두 같아야 함)
     visited[x][y] = True
     visited_2[x][y] = True
 
-    while q:
+    while q: # BFS 알고리즘
         cx, cy = q.popleft()
         
         for i in range(4):
@@ -54,46 +54,49 @@ def get_group(x, y): # 모든 블록 그룹을 찾는 함수(반환값 : 블록�
             ny = cy + dy[i]
 
             if 0 <= nx < N and 0 <= ny < N and not visited_2[nx][ny] and (area[nx][ny] == color or area[nx][ny] == 0):
-                if area[nx][ny] == color:
-                    visited[nx][ny] = True
-                    coors_2.append((nx,ny))
-                elif area[nx][ny] == 0:
+                if area[nx][ny] == color: # 일반 블록인 경우
+                    visited[nx][ny] = True # 블록 방문 처리(중복 탐색 방지)
+                    coors_2.append((nx,ny)) # 무지개 블록이 아닌 블록
+                elif area[nx][ny] == 0: # 무지개 블록인 경우
                     rainbow_count += 1
+
                 coors.append((nx,ny))
                 q.append((nx,ny))
                 visited_2[nx][ny] = True
                 count += 1
-
+    
+    # 블록 그룹의 기준 블록은 무지개 블록이 아닌 블록 중에서 행의 번호가 가장 작은 블록, 그러한 블록이 여러개면 열의 번호가 가장 작은 블록
     coors_2.sort(key = lambda x:(x[0], x[1]))
 
-    if count < 2:
+    if count < 2: # 그룹에 속한 블록의 개수는 2보다 크거나 같아야 함
         return -1
 
-    return [coors, count, rainbow_count, coors_2[0][0], coors_2[0][1]]
+    # 반환 값 : 블록의 좌표 값들, 블록 그룹의 크기, 무지개 블록 수, 기준 블록의 행, 기준 블록의 열
+    return [coors, count, rainbow_count, coors_2[0][0], coors_2[0][1]] 
 
-def step_one_and_two():
+def step_one_and_two(): # 오토 플레이 과정 1, 2번을 수행하는 함수
 
     global score
 
-    group_list = []
+    group_list = [] # 모든 블록 그룹을 저장하는 배열
 
     for i in range(N):
         for j in range(N):
             if area[i][j] != 0 and area[i][j] != -1 and area[i][j] != float("inf") and not visited[i][j]:
-                result = get_group(i,j) # [[(0, 0), (0, 1)], 2, 0, 0, 0]
-                if result == -1:
+                result = get_group(i,j) # ex) [[(0, 0), (0, 1)], 2, 0, 0, 0]
+                if result == -1: # 블록의 개수가 2보다 작은 경우에는 그룹으로 취급 X
                     continue
                 group_list.append(result)
     
-    if not group_list:
+    if not group_list: # 블록 그룹이 존재하지 않는 경우에는 False를 반환하여 while문 종료
         return False
     
-    group_list.sort(key = lambda x:(-x[1],-x[2],-x[3],-x[4]))
+    group_list.sort(key = lambda x:(-x[1],-x[2],-x[3],-x[4])) # 1) 블록 그룹 크기, 무지개 블록 수, 기준 블록 행, 기준 블록 열 기준으로 정렬
 
-    for x, y in group_list[0][0]:
+    for x, y in group_list[0][0]: # 2-1) 1에서 찾은 블록 그룹의 모든 블록을 제거
         area[x][y] = float("inf")
 
-    score += group_list[0][1]**2
+    score += group_list[0][1]**2 # 2-2) 블록 그룹에 포함된 블록의 수를 B라고 했을 때, B^2점을 획득
 
     return True
 
@@ -129,10 +132,10 @@ while True:
 
     visited =[[False]*N for _ in range(N)]
 
-    if not step_one_and_two():
-        break
-    down()
-    rotate90_left()
-    down()
+    if not step_one_and_two(): # 1, 2번 과정
+        break # 그룹 블록이 존재하지 않을 경우 반복문 종료
+    down() # 3번 과정
+    rotate90_left() # 4번 과정
+    down() # 5번 과정
 
 print(score)

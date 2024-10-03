@@ -17,7 +17,7 @@ N, M = map(int,input().split())
 
 area = [list(map(int,input().split())) for _ in range(N)]
 
-start_available = []
+start_available = [] # 바이러스를 놓을 수 있는 칸
 
 dx, dy = [-1,1,0,0], [0,0,-1,1]
 
@@ -28,10 +28,7 @@ for i in range(N):
         if area[i][j] == 2:
             start_available.append((i,j))
 
-# print(start_available)
-# print()
-
-def combination(coors, k):
+def combination(coors, k): # 바이러스가 시작될 수 있는 경우의 수(조합)을 구하는 함수
 
     cases = []
     
@@ -48,10 +45,9 @@ def combination(coors, k):
     
     return cases
 
-virus_cases = combination(start_available,M)
+virus_cases = combination(start_available,M) # 바이러스가 시작될 수 있는 경우의 수
 
 for virus_case in virus_cases:
-    # print(virus_case)
 
     visited = [[-1]*N for _ in range(N)]
 
@@ -74,27 +70,23 @@ for virus_case in virus_cases:
             if 0 <= nx < N and 0 <= ny < N and area[nx][ny] != 1 and visited[nx][ny] == -1:
                 visited[nx][ny] = visited[cx][cy] + 1
                 q.append((nx,ny))
-    # for v in visited:
-    #     print(v)
-    # print()
 
     for i in range(N):
         for j in range(N):
 
-            if area[i][j] != 1:
+            if area[i][j] != 1: # 모든 빈 칸에 바이러스를 퍼뜨리기 위한 최소 시간을 기록(2차원 배열의 최댓값)
                 max_time = max(max_time,visited[i][j])
 
-            if area[i][j] != 1 and visited[i][j] == -1:
+            if area[i][j] != 1 and visited[i][j] == -1: # 벽이 아닌데도 방문하지 않은 경우(모든 칸에 바이러스를 퍼뜨릴 수 없는 경우)
                 flag = False
             
-    
-    if not flag:
+    if not flag: # 모든 칸에 바이러스를 퍼뜨릴 수 없는 경우
         continue
     
-    else:
+    else: # 모든 빈 칸에 바이러스를 퍼뜨리기 위한 최소 시간 추가
         answer.append(max_time)
 
-if not answer:
+if not answer: # 어떤 경우에도 모든 칸에 바이러스를 퍼뜨릴 수 없는 경우
     print(-1)
 else:
     print(min(answer))

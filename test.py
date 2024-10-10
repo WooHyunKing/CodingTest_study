@@ -34,48 +34,74 @@
 #     if start > end:
 #         return -1
 
-import sys
-import heapq
+# import sys
+# import heapq
 
-v, e = map(int,input().split())
+# v, e = map(int,input().split())
 
-INF = float("inf")
+# INF = float("inf")
 
-graph = [[] for _ in range(v+1)]
+# graph = [[] for _ in range(v+1)]
 
-distance = [INF]*(v+1)
+# distance = [INF]*(v+1)
 
-start_node = int(input())
+# start_node = int(input())
 
-for _ in range(e):
-    start, end, cost = map(int,input().split())
-    graph[start].append((end,cost))
+# for _ in range(e):
+#     start, end, cost = map(int,input().split())
+#     graph[start].append((end,cost))
 
-def dijkstra(start):
+# def dijkstra(start):
     
-    distance[start] = 0
+#     distance[start] = 0
 
-    q = []
+#     q = []
 
-    heapq.heappush(q,(0,start))
+#     heapq.heappush(q,(0,start))
 
-    while q:
-        dist, current = heapq.heappop(q)
+#     while q:
+#         dist, current = heapq.heappop(q)
         
-        if distance[current] < dist:
-            continue
+#         if distance[current] < dist:
+#             continue
 
-        for node, cost in graph[current]:
-            new_cost = dist + cost
+#         for node, cost in graph[current]:
+#             new_cost = dist + cost
             
-            if new_cost < distance[node]:
-                distance[node] = new_cost
-                heapq.heappush(q,(new_cost,node))
+#             if new_cost < distance[node]:
+#                 distance[node] = new_cost
+#                 heapq.heappush(q,(new_cost,node))
 
-dijkstra(start_node)
+# dijkstra(start_node)
 
-for i in range(1,v+1):
-    if distance[i] == INF:
-        print("INF")
-    else:
-        print(distance[i])
+# for i in range(1,v+1):
+#     if distance[i] == INF:
+#         print("INF")
+#     else:
+#         print(distance[i])
+
+count = 0
+
+visited = [False]*5
+
+area = [[0]*5 for _ in range(5)]
+
+def test():
+    global count
+    count += 1
+
+    area[0][0] = 1
+    visited[0] = True
+
+print(count)
+print(visited)
+for i in area:
+    print(i)
+
+print()
+test()
+
+print(count)
+print(visited)
+for i in area:
+    print(i)

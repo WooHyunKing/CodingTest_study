@@ -117,7 +117,7 @@ def find_sq(sx,sy,ex,ey,length):
 
             for ti in range(new_sx,new_ex+1):
                 for tj in range(new_sy, new_ey+1):
-                    if 0 <= new_sx < N and 0 <= new_sy < N and 0<= new_ex < N and 0 <= new_ey < N and 0 <= ti < N and 0 <= tj <= N and area[ti][tj] >= 10:
+                    if 0 <= new_sx < N and 0 <= new_sy < N and 0<= new_ex < N and 0 <= new_ey < N and 0 <= ti < N and 0 <= tj < N and area[ti][tj] >= 10:
                         return (new_sx, new_sy, new_ex, new_ey)
     
     return (-1, -1, -1, -1)

@@ -7,35 +7,55 @@ for row in area:
 
 print()
 
-def rotate90_right():
-    
-    global area
+def rotate90(arr):
+
+    N = len(arr)
     
     new_area = [[0]*N for _ in range(N)]
-    
+
     for i in range(N):
         for j in range(N):
-            new_area[j][N-i-1] = area[i][j]
+            new_area[j][N-1-i] = arr[i][j]
 
     return new_area
 
-area = rotate90_right()
+area = rotate90(area)
 
 for row in area:
     print(row)
 print()
 
-def rotate90_left():
+def rotate180(arr):
     
+    N = len(arr)
+
     new_area = [[0]*N for _ in range(N)]
 
     for i in range(N):
         for j in range(N):
-            new_area[N-j-1][i] = area[i][j]
-    
+            new_area[N-1-i][N-1-j] = area[i][j]
+
     return new_area
 
-area = rotate90_left()
+area = rotate180(area)
+
+for row in area:
+    print(row)
+print()
+
+def rotate270(arr):
+
+    N = len(arr)
+
+    new_area = [[0]*N for _ in range(N)]
+
+    for i in range(N):
+        for j in range(N):
+            new_area[N-1-j][i] = arr[i][j]
+
+    return new_area
+
+area = rotate270(area)
 
 for row in area:
     print(row)

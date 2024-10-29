@@ -159,15 +159,12 @@ dfs(0)
 #                     # print(area_sets)
 #                     return False
 #     return True
-# dfs(count)
+
             
-
-
-
-
 
 # # for i in range(9):
 # #     for j in range(9):
 # #         if area[i][j] == 0:
 # #             for k in range(9,0,-1):
 # #                 dfs(count)
+# dfs(count)

@@ -386,6 +386,8 @@ while True:
     move_count = 0 # [모든 전사가 이동한 거리의 합]
     attack_count = 0 # [메두사를 공격한 전사의 수]
 
+    distance_w = compute_distance_w(cx,cy)
+
     # 3. 전사들의 이동
     for w in range(M):
         wx, wy = warriors[w][0], warriors[w][1]
@@ -393,8 +395,6 @@ while True:
 
         if status == -1 or status == 1: # 사망 또는 석화인 경우
             continue
-        
-        distance_w = compute_distance_w(cx,cy)
 
         for i in range(4):
             nwx, nwy = wx + dx[i], wy + dy[i]
